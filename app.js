@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 
 const app = express();
 
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: false })); // This help us to decode the de body, works as a middleware
 
 app.use("/", (req, res, next) => {
   console.log("This always runs!");
@@ -13,11 +13,11 @@ app.use("/", (req, res, next) => {
 app.use("/add-product", (req, res, next) => {
   console.log("In another middleware!");
   res.send(
-    "<form action='/product' method='POST'><input  type='text' name='Tile'/> <button type='submit'> Submit</button> </form>"
+    "<form action='/product' method='POST'><input  type='text' name='title'/> <button type='submit'> Submit</button> </form>"
   );
 });
 
-app.use("/product", (req, res, next) => {
+app.post("/product", (req, res, next) => {
   console.log(req.body);
   res.redirect("/");
 });
