@@ -3,10 +3,13 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
+const rootDir = require("./utils/path");
 
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false })); // This help us to decode the de body, works as a middleware
+
+app.use(express.static(path.join(rootDir, "public")));
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
